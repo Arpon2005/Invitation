@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>আকিজিয়ান ব্লাড ফাউন্ডেশন নিমন্ত্রণ</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffe6e6, #f2f2f2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      margin: 20px;
+    }
+    h1 {
+      color: #b31b1b;
+      margin-bottom: 20px;
+    }
+    form {
+      margin-bottom: 30px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 1rem;
+      width: 250px;
+      border: 2px solid #b31b1b;
+      border-radius: 5px;
+      outline: none;
+      transition: 0.3s;
+    }
+    input[type="text"]:focus {
+      border-color: #8a0d0d;
+    }
+    button {
+      padding: 10px 20px;
+      margin-left: 10px;
+      background-color: #b31b1b;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #8a0d0d;
+    }
+
+    .container {
+      position: relative;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .envelope {
+      width: 320px;
+      height: 200px;
+      background: linear-gradient(145deg, #b31b1b, #8a0d0d);
+      border-radius: 8px;
+      position: relative;
+      cursor: pointer;
+      transition: 0.5s;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      margin: 0 auto;
+    }
+
+    .envelope::before {
+      content: attr(data-recipient);
+      position: absolute;
+      top: 12px;
+      left: 20px;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .invitation-card {
+      width: 90%;
+      max-width: 400px;
+      padding: 25px;
+      background: white;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      transition: transform 0.6s ease-in-out;
+      z-index: 10;
+    }
+
+    .show .envelope {
+      transform: scale(0.9);
+    }
+
+    .show .invitation-card {
+      transform: translateX(-50%) scale(1);
+    }
+
+    .invitation-card h2 {
+      color: #b31b1b;
+      margin-bottom: 10px;
+    }
+
+    .invitation-card p {
+      color: #333;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 8px 0;
+    }
+
+    .from-text {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    .footer-message {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #777;
+      font-style: italic;
+    }
+
+    .confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .confetti span {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: red;
+      opacity: 0.7;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+      }
+      100% {
+        transform: translateY(500px) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>আকিজিয়ান ব্লাড ফাউন্ডেশন ১ম বর্ষপূর্তি</h1>
+
+  <form id="nameForm">
+    <input type="text" id="recipientName" placeholder="আপনার নাম লিখুন" required />
+    <button type="submit">View Invitation</button>
+  </form>
+
+  <div class="container" id="invitationContainer" style="display:none;" onclick="this.classList.toggle('show')">
+    <div class="confetti" id="confetti"></div>
+    <div class="envelope" data-recipient="To: Guest"></div>
+    <div class="invitation-card">
+      <h2>আকিজিয়ান ব্লাড ফাউন্ডেশন</h2>
+      <p>প্রথম প্রতিষ্ঠাবার্ষিকী উপলক্ষে<br>আলোচনা ও দোয়া মাহফিল</p>
+      <p><strong>স্থান:</strong> দিশারী শিশু একাডেমি, নাভারণ, যশোর</p>
+      <p><strong>সময়:</strong> দুপুর ২:৪৫ মিনিট</p>
+      <p>আপনার মূল্যবান উপস্থিতি আমাদের জন্য অত্যন্ত গুরুত্বপূর্ণ।</p>
+      <p class="from-text">আয়োজনেঃ আকিজিয়ান ব্লাড ফাউন্ডেশন</p>
+          </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('nameForm');
+    const container = document.getElementById('invitationContainer');
+    const envelope = container.querySelector('.envelope');
+
+    // Confetti creation function
+    function createConfetti() {
+      const confetti = document.getElementById("confetti");
+      confetti.innerHTML = ''; // Clear existing
+      for (let i = 0; i < 30; i++) {
+        const span = document.createElement("span");
+        span.style.left = Math.random() * 100 + "%";
+        span.style.animationDelay = Math.random() * 5 + "s";
+        span.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+        confetti.appendChild(span);
+      }
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('recipientName').value.trim();
+      if (name === '') return alert('অনুগ্রহ করে নাম লিখুন।');
+      envelope.setAttribute('data-recipient', 'To: ' + name);
+      container.style.display = 'block';
+      createConfetti();
+      container.classList.remove('show'); // Ensure card is closed initially
+      window.scrollTo({ top: container.offsetTop, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
